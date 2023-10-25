@@ -12,7 +12,7 @@ def img_printer(img_path:str):
 
 # function to get the cropping coordinates of the prostate gland trough the annotation file
 # this is needed to then crop the prostate image at correct ROI
-def get_crop_coordinates(delineation_path, num_slices=5):
+def get_crop_coordinates(delineation_path, num_slices):
     try:
         img = nib.load(delineation_path)
         img_fdata = img.get_fdata()
