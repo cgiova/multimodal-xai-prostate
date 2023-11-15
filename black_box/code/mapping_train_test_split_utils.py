@@ -10,21 +10,20 @@ def custom_train_test_split(df, test_size, val_size=None, random_state=None):
     total_samples = len(unique_patient_ids)
     # Stratified split on patient_ids and corresponding labels
     labels = df.groupby('patient_id')['label'].first()
+    # Initial split to create training and remaining sets
     train_patient_ids, remaining_patient_ids, _, _ = train_test_split(
         unique_patient_ids, labels, test_size=test_size, stratify=labels, random_state=random_state)
     if val_size is not None:
-        val_and_test_patient_ids, _, _, _ = train_test_split(
+        # Directly split remaining patient IDs into validation and test sets
+        valid_patient_ids, test_patient_ids, _, _ = train_test_split(
             remaining_patient_ids, labels[remaining_patient_ids], test_size=val_size,
             stratify=labels[remaining_patient_ids],
-            random_state=random_state)
-        valid_patient_ids, test_patient_ids, _, _ = train_test_split(
-            val_and_test_patient_ids, labels[val_and_test_patient_ids], test_size=0.5,
-            stratify=labels[val_and_test_patient_ids],
             random_state=random_state)
         # Filter the dataframe based on the selected patient_ids
         train_df = df[df['patient_id'].isin(train_patient_ids)]
         valid_df = df[df['patient_id'].isin(valid_patient_ids)]
         test_df = df[df['patient_id'].isin(test_patient_ids)]
+
         return train_df, valid_df, test_df
     else:
         train_df = df[df['patient_id'].isin(train_patient_ids)]
@@ -43,6 +42,7 @@ def check_dataframes(train_df,test_df,valid_df=None):
         overlapping_train_valid = train_patient_ids.intersection(valid_patient_ids)
         overlapping_train_test = train_patient_ids.intersection(test_patient_ids)
         overlapping_valid_test = valid_patient_ids.intersection(test_patient_ids)
+        print('Total size:', len(train_patient_ids) + len(valid_patient_ids) + len(test_patient_ids))
         print('Train dataframe size:', len(train_df))
         print('Validation dataframe size:', len(valid_df))
         print('Test dataframe size:', len(test_df))
