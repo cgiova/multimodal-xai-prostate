@@ -42,7 +42,7 @@ def check_dataframes(train_df,test_df,valid_df=None):
         overlapping_train_valid = train_patient_ids.intersection(valid_patient_ids)
         overlapping_train_test = train_patient_ids.intersection(test_patient_ids)
         overlapping_valid_test = valid_patient_ids.intersection(test_patient_ids)
-        print('Total size:', len(train_patient_ids) + len(valid_patient_ids) + len(test_patient_ids))
+        print('Total size:', len(train_df) + len(valid_df) + len(test_df))
         print('Train dataframe size:', len(train_df))
         print('Validation dataframe size:', len(valid_df))
         print('Test dataframe size:', len(test_df))
