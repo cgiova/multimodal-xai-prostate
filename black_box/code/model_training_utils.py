@@ -35,7 +35,7 @@ def preprocessing(image):
     return image
 
 
-# funtion to select complementrary images of different modalities but same patient id and slice index, preprocess them,
+# funtion to select complementary images of different modalities but same patient id and slice index, preprocess them,
 # and finally concatenate them into numpy arrays
 def array_stacking(folder_path, subset=''):
     image_pairs = {}
