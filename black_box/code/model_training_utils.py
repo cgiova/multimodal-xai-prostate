@@ -44,7 +44,7 @@ def array_stacking(folder_path, subset=''):
     for root, dirs, files in os.walk(folder_path):
         for img_path in files:
             img_name = os.path.basename(img_path)
-            patient_id, image_type, label, slice_index = parse_image_filename(img_name)
+            patient_id, image_type, label, slice_index = parse_image_filename(img_name, class_label=True)
             key = (patient_id, slice_index)
             image_pairs.setdefault(key, {})[image_type] = os.path.join(root, img_path)
             image_pairs[key]['label'] = label
