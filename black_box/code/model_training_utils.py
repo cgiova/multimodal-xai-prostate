@@ -63,7 +63,7 @@ def array_stacking(folder_path, subset=''):
             t2w_image = preprocessing(t2w_image)
             adc_image = preprocessing(adc_image)
             hbv_image = preprocessing(hbv_image)
-            # possibility to apply data augmentation on taining images
+            # possibility to apply data augmentation on training images
             if subset == 'train':
                 t2w_array = np.array(t2w_image)
                 adc_array = np.array(adc_image)
