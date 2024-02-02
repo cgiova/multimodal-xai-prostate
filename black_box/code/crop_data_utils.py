@@ -1,5 +1,5 @@
 import numpy as np
-import nibabel as nib  # remember to install nibabel library in the notebook
+import nibabel as nib  # remember to install nibabel library in the notebook !pip install nibabel
 from skimage.transform import resize
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
@@ -9,8 +9,13 @@ import re
 import glob
 
 
-# funtion to parse and obtain the key elements from the image filenames of the dataset
-def parse_image_filename(filename, class_label=True):
+def parse_image_filename(filename: str, class_label: bool):
+    """
+    Function to parse and obtain the key elements from the image filenames of the dataset
+    :param filename: the image filename
+    :param class_label: if the filename to parse has a class label
+    :return: the key elements of the image filenames
+    """
     if class_label:
         parts = filename.split('_')
         patient_id = '_'.join(parts[:2])
@@ -29,17 +34,26 @@ def parse_image_filename(filename, class_label=True):
         return patient_id, study_id, image_type, slice_index
 
 
-# funtion to display a selected image
-def img_printer(img_path: str):
+def img_display(img_path: str):
+    """
+    Function to display a selected image
+    :param img_path: path to the image
+    :return: the displayed image
+    """
     img = mpimg.imread(img_path)
     print(f'Image shape: {img.shape}\n')
     plt.imshow(img)
     plt.show()
 
 
-# function to get the cropping coordinates of the prostate gland trough the annotation file
-# this is needed to then crop the prostate image at correct ROI
-def get_crop_coordinates(delineation_path, num_slices):
+def get_crop_coordinates(delineation_path: str, num_slices: int):
+    """
+    Function to get the cropping coordinates of the prostate gland through the annotation file
+    this is needed to then crop the prostate image at correct ROI
+    :param delineation_path: path of the folder containing the delineation files
+    :param num_slices: number of slices to keep of the specific image modality
+    :return: a tuple with the list of ROI coordinates and the list of slice indices kept
+    """
     try:
         img = nib.load(delineation_path)
         img_fdata = img.get_fdata()
@@ -96,8 +110,13 @@ def get_crop_coordinates(delineation_path, num_slices):
     return rois, top_slice_indices.tolist()
 
 
-# funtion to control if any of the newly created folders has anomalies i.e. more files than intended
 def check_anomalies(output_path: str, threshold: int):
+    """
+    Function to control if any of the newly created folders has anomalies i.e. more files than intended
+    :param output_path: the path to the cropped images output folder
+    :param threshold: the number max of images in each patient folder to be considered not anomalous
+    :print: multiple prints to console with information about the anomalies
+    """
     # Initialize counters for total patient directories with anomalies and total anomalies
     patient_dirs_with_anomalies = 0
     total_anomalies = 0
@@ -159,11 +178,21 @@ def file_checker(path: str):
         print('Specified path does not exist')
 
 
-# funtion to crop the images and saved them in an output directory based on the coordinates and slices
-# obtained with the get_crop_coordinates(delineation_path, num_slices) funtion
-# used only for testing purposes, as it lacks a checkpoint logic
 def crop_dataset(input_path: str, output_root: str, crop_shape: tuple, num_slices: int, folder_breakpoint: int,
-                    wholegland_del_path: str, excluded_patients: list):
+                 wholegland_del_path: str, excluded_patients: list):
+    """
+    Function to crop the images and saved them in an output directory based on the coordinates and slices
+    obtained with the get_crop_coordinates(delineation_path, num_slices)
+    used only for testing purposes, as it lacks a checkpoint logic
+    :param input_path: input directory path
+    :param output_root: output directory path
+    :param crop_shape: shape in pixel (nxm) for resizing purposes
+    :param num_slices: number of slices to retain for each image modality per patient
+    :param folder_breakpoint: number of folders processed, threshold to break the process
+    :param wholegland_del_path: path to folder containing the masks of the whole gland prostate delineation
+    :param excluded_patients: list of patients to exclude from the process
+    :print: Notification when the dataset creation process is finished
+    """
     processed_folders = 1
     print('Begin Dataset Creation!', "\n")
     # Loop over the patient folders
@@ -197,10 +226,10 @@ def crop_dataset(input_path: str, output_root: str, crop_shape: tuple, num_slice
                         # Get the coordinates for the current slice from the rois list
                         coordinates_list = rois[slices.index(slice_num)]
                         if re.search(r'_t2w\d{1,2}_t2w.png', image_path) or re.search(r'_t2w\d{1,2}_adc.png',
-                                                                                        image_path):
+                                                                                      image_path):
                             t2w_img = mpimg.imread(image_path)
-                            t2w_img_crop = t2w_img[coordinates_list[0]:coordinates_list[1], \
-                                                    coordinates_list[2]:coordinates_list[3], :]
+                            t2w_img_crop = t2w_img[coordinates_list[0]:coordinates_list[1],
+                                                   coordinates_list[2]:coordinates_list[3], :]
                             # resize the image to a fixed format
                             t2w_img_resized = resize(t2w_img_crop, crop_shape, preserve_range=True)
                             # extract the image name without extension
@@ -216,16 +245,16 @@ def crop_dataset(input_path: str, output_root: str, crop_shape: tuple, num_slice
                         # same logic for adc and hbv format images
                         elif re.search(r'_adc\d{1,2}_adc.png', image_path):
                             adc_img = mpimg.imread(image_path)
-                            adc_img_crop = adc_img[coordinates_list[0]:coordinates_list[1], \
-                                                    coordinates_list[2]:coordinates_list[3], :]
+                            adc_img_crop = adc_img[coordinates_list[0]:coordinates_list[1],
+                                                   coordinates_list[2]:coordinates_list[3], :]
                             adc_img_resized = resize(adc_img_crop, crop_shape, preserve_range=True)
                             img_name = os.path.splitext(os.path.basename(image_path))[0]
                             output_img_path = os.path.join(output_path, img_name + '.png')
                             plt.imsave(output_img_path, adc_img_resized)
                         elif re.search(r'_hbv\d{1,2}_hbv.png', image_path):
                             hbv_img = mpimg.imread(image_path)
-                            hbv_img_crop = hbv_img[coordinates_list[0]:coordinates_list[1], \
-                                                    coordinates_list[2]:coordinates_list[3], :]
+                            hbv_img_crop = hbv_img[coordinates_list[0]:coordinates_list[1],
+                                                   coordinates_list[2]:coordinates_list[3], :]
                             hbv_img_resized = resize(hbv_img_crop, crop_shape, preserve_range=True)
                             img_name = os.path.splitext(os.path.basename(image_path))[0]
                             output_img_path = os.path.join(output_path, img_name + '.png')
@@ -244,12 +273,23 @@ def crop_dataset(input_path: str, output_root: str, crop_shape: tuple, num_slice
     print("Dataset Creation Completed!")
 
 
-# funtion to crop the images and saved them in an output directory based on the coordinates and slices
-# obtained with the get_crop_coordinates(delineation_path, num_slices) funtion
-# includes a checkpoint system to resume if executions stops
 def crop_dataset_checkflag(input_path: str, output_root: str, crop_shape: tuple, num_slices: int,
-                            folder_breakpoint: int, wholegland_del_path: str, excluded_patients: list,
-                            checkpoint_file: str):
+                           folder_breakpoint: int, wholegland_del_path: str, excluded_patients: list,
+                           checkpoint_file: str):
+    """
+    Function to crop the images and saved them in an output directory based on the coordinates and slices
+    obtained with the get_crop_coordinates(delineation_path, num_slices)
+    includes a checkpoint system to resume the process if executions stops
+    :param input_path: input folder path
+    :param output_root: output folder directory path
+    :param crop_shape: shape in pixel (nxm) for resizing purposes
+    :param num_slices: number of slices to retain for each image modality per patient
+    :param folder_breakpoint: number of folders processed, threshold to break the process
+    :param wholegland_del_path: path to folder containing the masks of the whole gland prostate delineation
+    :param excluded_patients: list of patients to exclude from the process
+    :param checkpoint_file: path to the checkpoint file storing the number of folders already processed
+    :print: Notification when the dataset creation process finishes
+    """
     processed_folders = 1
     print('Begin Dataset Creation!', "\n")
     # check checkpoint
@@ -290,8 +330,8 @@ def crop_dataset_checkflag(input_path: str, output_root: str, crop_shape: tuple,
                             if re.search(r'_t2w\d{1,2}_t2w.png', image_path) or re.search(
                                     r'_t2w\d{1,2}_adc.png', image_path):
                                 t2w_img = mpimg.imread(image_path)
-                                t2w_img_crop = t2w_img[coordinates_list[0]:coordinates_list[1], \
-                                                        coordinates_list[2]:coordinates_list[3], :]
+                                t2w_img_crop = t2w_img[coordinates_list[0]:coordinates_list[1],
+                                                       coordinates_list[2]:coordinates_list[3], :]
                                 t2w_img_resized = resize(t2w_img_crop, crop_shape, preserve_range=True)
                                 img_name = os.path.splitext(os.path.basename(image_path))[0]
                                 if img_name.endswith("_adc"):
@@ -302,16 +342,16 @@ def crop_dataset_checkflag(input_path: str, output_root: str, crop_shape: tuple,
                                 plt.imsave(output_img_path, t2w_img_resized)
                             elif re.search(r'_adc\d{1,2}_adc.png', image_path):
                                 adc_img = mpimg.imread(image_path)
-                                adc_img_crop = adc_img[coordinates_list[0]:coordinates_list[1], \
-                                                        coordinates_list[2]:coordinates_list[3], :]
+                                adc_img_crop = adc_img[coordinates_list[0]:coordinates_list[1],
+                                                       coordinates_list[2]:coordinates_list[3], :]
                                 adc_img_resized = resize(adc_img_crop, crop_shape, preserve_range=True)
                                 img_name = os.path.splitext(os.path.basename(image_path))[0]
                                 output_img_path = os.path.join(output_path, img_name + '.png')
                                 plt.imsave(output_img_path, adc_img_resized)
                             elif re.search(r'_hbv\d{1,2}_hbv.png', image_path):
                                 hbv_img = mpimg.imread(image_path)
-                                hbv_img_crop = hbv_img[coordinates_list[0]:coordinates_list[1], \
-                                                        coordinates_list[2]:coordinates_list[3], :]
+                                hbv_img_crop = hbv_img[coordinates_list[0]:coordinates_list[1],
+                                                       coordinates_list[2]:coordinates_list[3], :]
                                 hbv_img_resized = resize(hbv_img_crop, crop_shape, preserve_range=True)
                                 img_name = os.path.splitext(os.path.basename(image_path))[0]
                                 output_img_path = os.path.join(output_path, img_name + '.png')
@@ -331,4 +371,4 @@ def crop_dataset_checkflag(input_path: str, output_root: str, crop_shape: tuple,
         print("Dataset Creation Completed!")
     else:
         crop_dataset(input_path, output_root, crop_shape, num_slices, folder_breakpoint, wholegland_del_path,
-                        excluded_patients)
+                     excluded_patients)
