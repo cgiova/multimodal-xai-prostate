@@ -1,5 +1,5 @@
 import numpy as np
-import nibabel as nib  # remember to install nibabel library in the notebook !pip install nibabel
+import nibabel as nib
 from skimage.transform import resize
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg

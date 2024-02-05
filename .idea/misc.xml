@@ -3,5 +3,5 @@
   <component name="Black">
     <option name="sdkName" value="snowflakes" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="snowflakes" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.11 (snowflakes)" project-jdk-type="Python SDK" />
 </project>
