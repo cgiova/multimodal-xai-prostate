@@ -33,7 +33,29 @@ def parse_image_filename(filename: str, class_label: bool):
         slice_index = int(parts[2][3:])
         return patient_id, study_id, image_type, slice_index
 
-
+def parse_image_filename2(filename, class_label=True):
+    """
+    Alternative Function returning the shortened patient filename
+    :param filename: the image filename
+    :param class_label: if the filename to parse has a class label
+    :return: the key elements of the image filenames
+    """
+    if class_label:
+        parts = filename.split('_')
+        patient_id = parts[0]
+        study_id = parts[1]
+        image_type = parts[3]
+        class_label = int(re.search(r'class(\d+)', parts[-1]).group(1))
+        slice_index = int(re.search(rf'{image_type}(\d+)', filename).group(1))
+        return patient_id, study_id, image_type, class_label, slice_index
+    else:
+        filename = filename.split('.')[0]
+        parts = filename.split('_')
+        patient_id = parts[0]
+        study_id = parts[1]
+        image_type = parts[-1]
+        slice_index = int(parts[2][3:])
+        return patient_id, study_id, image_type, slice_index
 def img_display(img_path: str):
     """
     Function to display a selected image
