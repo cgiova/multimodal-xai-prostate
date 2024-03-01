@@ -13,6 +13,9 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import classification_report
 from sklearn.metrics import confusion_matrix
 import seaborn as sns
+import numpy as np
+from imblearn.over_sampling import RandomOverSampler
+from imblearn.under_sampling import RandomUnderSampler
 
 
 #
@@ -285,3 +288,39 @@ def plot_confusion_matrix(y_test):
     plt.ylabel('True Labels')
     plt.title('Confusion Matrix')
     plt.show()
+
+
+def balance_dataset(X, y, method='oversample'):
+    """
+    Balances the dataset by either undersampling or oversampling.
+    Parameters:
+    X (numpy.ndarray): Feature matrix.
+    y (numpy.ndarray): Target array.
+    method (str): Method to balance dataset ('undersample' or 'oversample').
+    Returns:
+    X_resampled (numpy.ndarray): Resampled feature matrix.
+    y_resampled (numpy.ndarray): Resampled target array.
+    """
+    # Store the original sample dimension for later use
+    sample_dimension = X.shape[1:]
+    # Flatten X for resampling
+    X = X.reshape(X.shape[0], -1)
+
+    unique, counts = np.unique(y, return_counts=True)
+    print("Original dataset shape:", dict(zip(unique, counts)))
+
+    if method == 'oversample':
+        resampler = RandomOverSampler(random_state=0)
+    elif method == 'undersample':
+        resampler = RandomUnderSampler(random_state=0)
+    else:
+        raise ValueError("Method must be 'oversample' or 'undersample'")
+
+    X_resampled, y_resampled = resampler.fit_resample(X, y)
+    # Reshape X_resampled to have the original sample dimensions
+    X_resampled = X_resampled.reshape(-1, *sample_dimension)
+
+    unique_resampled, counts_resampled = np.unique(y_resampled, return_counts=True)
+    print("Resampled dataset shape:", dict(zip(unique_resampled, counts_resampled)))
+
+    return X_resampled, y_resampled
