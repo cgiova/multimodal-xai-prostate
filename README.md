@@ -11,7 +11,8 @@ We first present a multimodal deep learning model that integrates MRI data and p
 
 Our experiments, conducted on the PI-CAI Grand Challenge dataset, demonstrate the potential of combining multimodal data and XAI techniques to advance prostate cancer diagnosis. By integrating MRI data such as Apparent Diffusion Coefficient (ADC), T2-weighted (T2w), and Diffusion-Weighted Imaging (DWI), along with tabular metadata, and employing a convolutional neural network enhanced by transfer learning, our study offers improved predictive performance, reliability, and interpretability in medical diagnostics and treatment decisions.
 
-![alt text](https://github.com/[username]/cgiova/blob/main/images/workflow_xai_prostate.png)
+
+![Workflow XAI Prostate](images/workflow_xai_prostate.png)
 
 ## Repository Contents
 
