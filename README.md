@@ -11,11 +11,13 @@ We first present a multimodal deep learning model that integrates MRI data and p
 
 Our experiments, conducted on the PI-CAI Grand Challenge dataset, demonstrate the potential of combining multimodal data and XAI techniques to advance prostate cancer diagnosis. By integrating MRI data such as Apparent Diffusion Coefficient (ADC), T2-weighted (T2w), and Diffusion-Weighted Imaging (DWI), along with tabular metadata, and employing a convolutional neural network enhanced by transfer learning, our study offers improved predictive performance, reliability, and interpretability in medical diagnostics and treatment decisions.
 
+![alt text](https://github.com/[username]/cgiova/blob/main/images/workflow_xai_prostate.png)
+
 ## Repository Contents
 
-- `black_box/`: Directory containing scripts related to the black box classifier.
+- `black_box/`: Directory containing scripts related to the black box image classifier.
   - `code/`: Subdirectory containing additional scripts related to the project.
-    - `IGTD_utils.py`: Utility functions for the black box classifier.
+    - `IGTD_utils.py`: Utility functions for the tabular-to-images conversion algorithm.
     - `array_creation_stacking_utils.py`: Utility functions for creating and stacking arrays.
     - `crop_data_utils.py`: Utility functions for cropping data notebook.
     - `dataset_creation_utils.py`: Utility functions for dataset creation.
@@ -30,6 +32,7 @@ Our experiments, conducted on the PI-CAI Grand Challenge dataset, demonstrate th
     - `3.3.array_creation_stacking.ipynb`: Notebook for array creation and stacking preprocessing step.
     - `4.model_training.ipynb`: Notebook for training the classification model.
     - `5.post_lesion_explanation_creation.ipynb`: Notebook for post-lesion explanation analysis.
+- `images/`: Subdirectory containing the images created for the paper. 
 - `README.md`: This file you're currently reading.
 
 ## Citation
