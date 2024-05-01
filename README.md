@@ -14,8 +14,9 @@ Our experiments, conducted on the PI-CAI Grand Challenge dataset, demonstrate th
 ## Dataset
 The dataset used for the analisys is the one provided for the PI-CAI Grand Challenge [https://pi-cai.grand-challenge.org] \
 Imaging data can be found here [https://zenodo.org/records/6624726]\
-Annotations have been released and are maintained via: [github.com/DIAGNijmegen/picai_labels]\
+Annotations have been released and are maintained via: [github.com/DIAGNijmegen/picai_labels]
 
+## Workflow
 ![Workflow XAI Prostate](images/workflow_xai_prostate.png)
 
 ## Repository Contents
