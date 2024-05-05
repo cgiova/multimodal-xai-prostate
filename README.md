@@ -22,22 +22,22 @@ Annotations have been released and are maintained via: [github.com/DIAGNijmegen/
 ## Repository Contents
 
 - `black_box/`: Directory containing scripts related to the black box image classifier.
-  - `code/`: Subdirectory containing additional scripts related to the project.
-    - `IGTD_utils.py`: Utility functions for the tabular-to-images conversion algorithm.
-    - `array_creation_stacking_utils.py`: Utility functions for creating and stacking arrays.
-    - `crop_data_utils.py`: Utility functions for cropping data notebook.
-    - `dataset_creation_utils.py`: Utility functions for dataset creation.
-    - `mapping_train_test_split_utils.py`: Utility functions for mapping train-test splits.
-    - `model_training_utils.py`: Utility functions for training models.
-  - `notebooks/`: Subdirectory containing Jupyter notebooks.
-    - `0.lesion_EDA.ipynb`: Notebook for exploratory data analysis on prostate lesions.
-    - `1.crop_data.ipynb`: Notebook for cropping data preprocessing step.
-    - `2.mapping_train_test_split.ipynb`: Notebook for mapping train-test split preprocessing step.
-    - `3.1.dataset_creation.ipynb`: Notebook for dataset creation preprocessing step.
-    - `3.2.tab_to_images.ipynb`: Notebook for converting tabular data to images.
-    - `3.3.array_creation_stacking.ipynb`: Notebook for array creation and stacking preprocessing step.
-    - `4.model_training.ipynb`: Notebook for training the classification model.
-    - `5.post_lesion_explanation_creation.ipynb`: Notebook for post-lesion explanation analysis.
+  - `code/`: Subdirectory containing additional scripts with utility functions developed for the project.
+    - `IGTD_utils.py`
+    - `array_creation_stacking_utils.py`
+    - `crop_data_utils.py`
+    - `dataset_creation_utils.py`
+    - `mapping_train_test_split_utils.py`
+    - `model_training_utils.py`
+  - `notebooks/`: Subdirectory containing Jupyter notebooks with the entire project pipeline.
+    - `0.lesion_EDA.ipynb`
+    - `1.crop_data.ipynb`
+    - `2.mapping_train_test_split.ipynb`
+    - `3.1.dataset_creation.ipynb`
+    - `3.2.tab_to_images.ipynb`
+    - `3.3.array_creation_stacking.ipynb`
+    - `4.model_training.ipynb`
+    - `5.post_lesion_explanation_creation.ipynb`
 - `images/`: Subdirectory containing the images created for the paper. 
 - `README.md`: This file you're currently reading.
 
