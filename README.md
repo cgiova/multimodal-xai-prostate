@@ -17,7 +17,7 @@ Imaging data can be found here [https://zenodo.org/records/6624726]\
 Annotations have been released and are maintained via: [github.com/DIAGNijmegen/picai_labels]
 
 ## Workflow
-![Workflow XAI Prostate](images/workflow_xai_prostate.png)
+![Workflow XAI Prostate](images/framework_prostate.png)
 
 ## Repository Contents
 
