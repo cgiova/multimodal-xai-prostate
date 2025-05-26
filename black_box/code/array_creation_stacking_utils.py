@@ -1,4 +1,4 @@
-# Copyright 2025 laudio Giovannoni, Carlo Metta, Anna Monreale,
+# Copyright 2025 Claudio Giovannoni, Carlo Metta, Anna Monreale,
 # Salvatore Rinzivillo, Andrea Berti, Sara Colantonio, and
 # Francesca Pratesi
 #
