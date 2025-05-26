@@ -1,3 +1,24 @@
+# Copyright 2025 Claudio Giovannoni, Carlo Metta, Anna Monreale,
+# Salvatore Rinzivillo, Andrea Berti, Sara Colantonio, and
+# Francesca Pratesi
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+# ATTENTION:
+# This file contains the utility functions for IGTD, taken from the relative repository that can be found
+# at the following link: https://github.com/zhuyitan/IGTD.git
+# full credits to Yitan Zhu et al. for the creation of the algorithm, which we implemented in our code
+
 from scipy.stats import spearmanr, rankdata
 from scipy.spatial.distance import pdist, squareform
 import matplotlib.pyplot as plt
@@ -10,11 +31,6 @@ import _pickle as cp
 import sys
 from astropy.stats import median_absolute_deviation
 
-"""
-This file contains the utility functions for IGTD, taken from the relative repository that can be found
-at this link: https://github.com/zhuyitan/IGTD.git
-all credits to Yitan Zhu et al.
- """
 def select_features_by_variation(data, variation_measure='var', threshold=None, num=None, draw_histogram=False,
                                  bins=100, log=False):
     """
