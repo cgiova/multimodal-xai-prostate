@@ -1,6 +1,4 @@
-# Copyright 2025 Claudio Giovannoni, Carlo Metta, Anna Monreale,
-# Salvatore Rinzivillo, Andrea Berti, Sara Colantonio, and
-# Francesca Pratesi
+# Copyright 2025 Claudio Giovannoni
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
