@@ -59,5 +59,8 @@ If you find our work helpful, please consider citing our paper:
 - [University of Pisa]([https://github.com/unipisa]): Organization
 - [ISTI-CNR]((https://www.isti.cnr.it/en/)): Organization
 
+## License
+This project is licensed under the [Apache License 2.0](LICENSE).
+
 ---
 This repository is maintained by the authors and contributors. We welcome any feedback or suggestions for improvement.
