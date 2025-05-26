@@ -14,15 +14,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import re
 import cv2
 import numpy as np
 import os
 from keras import backend as K
 from crop_data_utils import parse_image_filename
 
-#funtion to examine the dataset and check for issues in files
+
 def count_files_in_folders(*folder_paths):
+    """
+    Function to examine the dataset and check for issues in files
+    """
     total_files = 0
     # Ensure an even number of folder paths
     if len(folder_paths) % 2 != 0:
@@ -41,8 +43,12 @@ def count_files_in_folders(*folder_paths):
     print(f'Total files in all Folder Pairs: {total_files}')
 
 
-# funtion to preprocess the input images before concatenating them into np arrays, customizable
 def preprocessing(image):
+    """
+    function to preprocess the input images before concatenating them into np arrays, customizable
+    :param image:
+    :return: image
+    """
     # pixel normalization
     image = np.uint16(image * 255.0)
     # Apply CLAHE
@@ -51,9 +57,12 @@ def preprocessing(image):
     return image
 
 
-# funtion to select complementary images of different modalities but same patient id and slice index, preprocess them,
-# and finally concatenate them into numpy arrays
 def array_stacking(folder_path, subset=''):
+    """
+    Function to select complementary images of different modalities but the same patient id and slice index, preprocess them,
+    and concatenate them into numpy arrays
+    :return: np.array
+    """
     image_pairs = {}
     stacked_arrays = []
     labels = []
@@ -112,8 +121,13 @@ def wbce(weight1, weight0):
     return loss
 
 
-# funtion wich implements learning rate scheduler to use with SGD optimization technique
 def scheduler(epoch, lr):
+    """
+    Function implementing learning rate scheduler to use with SGD optimization technique
+    :param epoch:
+    :param lr:
+    :return:
+    """
     if epoch < 50:
         return lr
     elif epoch % 50 == 0:

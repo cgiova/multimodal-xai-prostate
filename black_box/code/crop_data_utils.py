@@ -72,6 +72,8 @@ def parse_image_filename2(filename, class_label=True):
         image_type = parts[-1]
         slice_index = int(parts[2][3:])
         return patient_id, study_id, image_type, slice_index
+
+
 def img_display(img_path: str):
     """
     Function to display a selected image

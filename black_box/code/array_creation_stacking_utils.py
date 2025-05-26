@@ -92,7 +92,69 @@ def preprocessing(image):
     return image
 
 
-def array_stacking(folder_path: str, subset: str, dims: int, mapping_dict_filepath=None):
+def array_stacking(folder_path: str,mapping_dict_filepath: str,subset: str):
+    """
+    Function creating the stacked arrays from the other modalities and the tabular data
+    arrays are patient-wise and slice-wise for images, only patient-wise for tabular data turned into images
+    returns a numpy array for each patient slice, the modalities are stacked on the third dimension
+    """
+    stacked_arrays = []
+    labels = []
+    lost_counter = 0
+    mapping_dict = patient_image_map(mapping_dict_filepath)
+    image_pairs = create_imagepairs_dict(folder_path)
+
+    # Pair and stack images
+    for key, image_data in image_pairs.items():
+        patient_id, slice_index = key
+        if 't2w' in image_data and 'adc' in image_data and 'hbv' in image_data:
+            if patient_id in mapping_dict:
+                # check if patient is in mapping dictionary
+                t2w_path = image_data['t2w']
+                adc_path = image_data['adc']
+                hbv_path = image_data['hbv']
+                label = image_data['label']
+
+                # Load and preprocess the images as grayscale
+                t2w_img = cv2.resize(cv2.imread(t2w_path, cv2.IMREAD_GRAYSCALE), (224,224))
+                adc_img = cv2.resize(cv2.imread(adc_path, cv2.IMREAD_GRAYSCALE), (224,224))
+                hbv_img = cv2.resize(cv2.imread(hbv_path, cv2.IMREAD_GRAYSCALE), (224,224))
+                t2w_array = np.array(t2w_img)
+                adc_array = np.array(adc_img)
+                hbv_array = np.array(hbv_img)
+
+                # access the tabular image data of the specific patient
+                image_tabular = np.array(mapping_dict[patient_id])
+
+                # Check if the tabular array is empty
+                if not image_tabular.size:
+                    lost_counter += 1
+                    print(f"Tabular array for {patient_id} is empty. Skipping.")
+                    continue
+
+                # possibility to apply data augmentation on training images
+                if subset == 'train':
+                    t2w_array = np.expand_dims(preprocessing(t2w_array), axis=-1)
+                    adc_array = np.expand_dims(preprocessing(adc_array), axis=-1)
+                    hbv_array = np.expand_dims(preprocessing(hbv_array), axis=-1)
+                    tab_img_array = np.expand_dims(image_tabular,axis=-1)
+                    stacked_arrays.append(np.concatenate([t2w_array, adc_array,hbv_array,tab_img_array], axis=-1))
+                    labels.append(label)
+                else:
+                    t2w_array = np.expand_dims(t2w_array, axis=-1)
+                    adc_array = np.expand_dims(adc_array, axis=-1)
+                    hbv_array = np.expand_dims(hbv_array, axis=-1)
+                    tab_img_array = np.expand_dims(image_tabular,axis=-1)
+                    stacked_arrays.append(np.concatenate([t2w_array, adc_array,hbv_array,tab_img_array], axis=-1))
+                    labels.append(label)
+        else:
+            lost_counter += 1
+            print(f"{patient_id} not found in mapping dict for subset: {subset}")
+    print(f"total lost files:{lost_counter}")
+    return np.array(stacked_arrays), np.array(labels)
+
+
+def array_stacking2(folder_path: str, subset: str, dims: int, mapping_dict_filepath=None):
     """
     Function creating the stacked arrays from the image modalities with or without tabular data
     arrays are patient-wise and slice-wise for images, only patient-wise for tabular data turned into images
@@ -194,6 +256,65 @@ def array_stacking_4d(folder_path: str, mapping_dict_filepath: str, subset: str)
                     hbv_array = np.expand_dims(hbv_array, axis=-1)
                     tab_img_array = np.expand_dims(image_tabular, axis=-1)
                     stacked_arrays.append(np.concatenate([t2w_array, adc_array, hbv_array, tab_img_array], axis=-1))
+                    labels.append(label)
+        else:
+            lost_counter += 1
+            print(f"{patient_id} not found in mapping dict for subset: {subset}")
+    print(f"total lost files:{lost_counter}")
+    return np.array(stacked_arrays), np.array(labels)
+
+
+def array_stacking_backup(folder_path: str,mapping_dict_filepath: str,subset: str):
+    """
+    Function creating the stacked arrays from the other modalities and the tabular data.
+    Arrays are patient-wise and slice-wise for images, only patient-wise for tabular data turned into images.
+    Returns a numpy array for each patient slice, the modalities are stacked on the third dimension.
+    """
+    stacked_arrays = []
+    labels = []
+    lost_counter = 0
+    mapping_dict = patient_image_map(mapping_dict_filepath)
+    image_pairs = create_imagepairs_dict(folder_path)
+
+    # Pair and stack images
+    for key, image_data in image_pairs.items():
+        patient_id, slice_index = key
+        if 't2w' in image_data and 'adc' in image_data and 'hbv' in image_data:
+            if patient_id in mapping_dict:
+                # check if patient is in mapping dictionary
+                t2w_path = image_data['t2w']
+                adc_path = image_data['adc']
+                hbv_path = image_data['hbv']
+                label = image_data['label']
+
+                # Load and preprocess the images as grayscale
+                t2w_array = np.array(cv2.imread(t2w_path, cv2.IMREAD_GRAYSCALE))
+                adc_array = np.array(cv2.imread(adc_path, cv2.IMREAD_GRAYSCALE))
+                hbv_array = np.array(cv2.imread(hbv_path, cv2.IMREAD_GRAYSCALE))
+
+                # access the tabular image data of the specific patient
+                image_tabular = np.array(mapping_dict[patient_id])
+
+                # Check if the tabular array is empty
+                if not image_tabular.size:
+                    lost_counter += 1
+                    print(f"Tabular array for {patient_id} is empty. Skipping.")
+                    continue
+
+                # possibility to apply data augmentation on training images
+                if subset == 'train':
+                    t2w_array = np.expand_dims(preprocessing(t2w_array), axis=-1)
+                    adc_array = np.expand_dims(preprocessing(adc_array), axis=-1)
+                    hbv_array = np.expand_dims(preprocessing(hbv_array), axis=-1)
+                    tab_img_array = np.expand_dims(image_tabular,axis=-1)
+                    stacked_arrays.append(np.concatenate([t2w_array, adc_array,hbv_array,tab_img_array], axis=-1))
+                    labels.append(label)
+                else:
+                    t2w_array = np.expand_dims(t2w_array, axis=-1)
+                    adc_array = np.expand_dims(adc_array, axis=-1)
+                    hbv_array = np.expand_dims(hbv_array, axis=-1)
+                    tab_img_array = np.expand_dims(image_tabular,axis=-1)
+                    stacked_arrays.append(np.concatenate([t2w_array, adc_array,hbv_array,tab_img_array], axis=-1))
                     labels.append(label)
         else:
             lost_counter += 1
