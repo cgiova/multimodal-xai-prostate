@@ -1,10 +1,8 @@
-# Multimodal Deep Learning and Explainable AI for Enhanced Prostate Lesion Classification GitHub Repo
-
-Welcome to the repository for the paper "Integrating Multimodal Deep Learning and Explainable AI for Enhanced Prostate Lesion Classification".
+# Multimodal Deep Learning and Explainable AI for Enhanced Prostate Lesion Classification Official Repository
+Welcome to the repository for "Integrating Multimodal Deep Learning and Explainable AI for Enhanced Prostate Lesion Classification".\
 This repository contains Python scripts and Jupyter notebooks related to the creation of a black box classifier, dataset preprocessing, and explainability techniques.
 
-## Paper Abstract
-
+## Abstract
 Artificial Intelligence holds immense promise in healthcare, offering opportunities to enhance disease diagnosis, treatment selection, and clinical testing. However, the lack of interpretability in AI systems poses a significant challenge, potentially impeding their adoption. In our paper, we address this issue by proposing an analytical framework that leverages a multimodal deep learning approach for the classification of prostate lesions using Magnetic Resonance Imaging (MRI) data and patient clinical information.
 
 We first present a multimodal deep learning model that integrates MRI data and patient metadata to classify prostate lesions. This model aims to improve diagnostic accuracy while maintaining interpretability. Subsequently, we introduce a multimodal explainable artificial intelligence (XAI) approach, employing visual explanations to elucidate the decision-making process of our proposed model. This approach allows us to identify how different modalities contribute to each specific prediction, enhancing trust and understanding.
@@ -12,9 +10,9 @@ We first present a multimodal deep learning model that integrates MRI data and p
 Our experiments, conducted on the PI-CAI Grand Challenge dataset, demonstrate the potential of combining multimodal data and XAI techniques to advance prostate cancer diagnosis. By integrating MRI data such as Apparent Diffusion Coefficient (ADC), T2-weighted (T2w), and Diffusion-Weighted Imaging (DWI), along with tabular metadata, and employing a convolutional neural network enhanced by transfer learning, our study offers improved predictive performance, reliability, and interpretability in medical diagnostics and treatment decisions.
 
 ## Dataset
-The dataset used for the analisys is the one provided for the PI-CAI Grand Challenge [https://pi-cai.grand-challenge.org] \
-Imaging data can be found here [https://zenodo.org/records/6624726]\
-Annotations have been released and are maintained via: [github.com/DIAGNijmegen/picai_labels]
+The dataset used for the analysis is the one provided for the [PI-CAI Grand Challenge](https://pi-cai.grand-challenge.org)  
+Imaging data is available at [Zenodo](https://zenodo.org/records/6624726)\
+Annotations have been released and are maintained via this [GitHub Repository](https://github.com/DIAGNijmegen/picai_labels)
 
 ## Workflow
 ![Workflow XAI Prostate](images/framework_prostate.png)
@@ -39,14 +37,14 @@ Annotations have been released and are maintained via: [github.com/DIAGNijmegen/
     - `4.model_training.ipynb`
     - `5.post_lesion_explanation_creation.ipynb`
 - `images/`: Subdirectory containing the images created for the paper. 
-- `README.md`: This file you're currently reading.
+- `LICENSE`: The Project License
+- `README.md`: This file.
 
 <!---
 ## Citation
 If you find our work helpful, please consider citing our paper:
 \[citation\]
 -->
-
 
 ## Contributors (in alphabetical order) and Organizations
 - [Andrea Berti](https://github.com/----)
