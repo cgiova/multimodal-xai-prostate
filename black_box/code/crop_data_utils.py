@@ -194,7 +194,7 @@ def check_anomalies(output_path: str, threshold: int):
     print(f"Total number of negative anomalies: {total_negative_anomalies}")
 
 
-# funtion to check the number of folders, files and overall gb size of the data directory
+# function to check the number of folders, files and overall gb size of the data directory
 def file_checker(path: str):
     if os.path.exists(path):
         total_size = 0
@@ -303,7 +303,7 @@ def crop_dataset(input_path: str, output_root: str, crop_shape: tuple, num_slice
                     continue
         # update counter
         processed_folders += 1
-        # Break the loop if the desired number of folders have been processed
+        # Break the loop if the desired number of folders has been processed
         if folder_breakpoint:
             if processed_folders >= folder_breakpoint:
                 print("\t\t", 'Total folders processed...', processed_folders, "\n")
