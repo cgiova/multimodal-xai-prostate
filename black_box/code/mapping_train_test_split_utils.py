@@ -18,10 +18,12 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 
 
-# funtion used to perform the train test split or the train val test split in a way that there are no images of the
-# same patient across multiple sets (to avoid unwanted correlations during modelling and inference). Also,
-# the function assures a very similar class distribution across all sets
 def custom_train_test_split(df, test_size, val_size=None, random_state=None):
+    """
+    # Function used to perform the train test split or the train val test split in a way that there are no images of the
+    # same patient across multiple sets (to avoid unwanted correlations during modelling and inference). Also,
+    # the function assures a very similar class distribution across all sets
+    """
     unique_patient_ids = df['patient_id'].unique()
     total_samples = len(unique_patient_ids)
     # Stratified split on patient_ids and corresponding labels
@@ -47,9 +49,11 @@ def custom_train_test_split(df, test_size, val_size=None, random_state=None):
         return train_df, test_df
 
 
-# function used to check the newly created dfs with metrics such as size, class distribution, number of overlapping
-# patient across sets
 def check_dataframes(train_df,test_df,valid_df=None):
+    """
+    Function used to check the newly created dfs with metrics such as size, class distribution, number of overlapping
+    patients across sets
+    """
     if valid_df is not None:
         # check_overlapping
         train_patient_ids = set(train_df['patient_id'].unique())

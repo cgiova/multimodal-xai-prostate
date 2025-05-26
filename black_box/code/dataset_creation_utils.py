@@ -17,7 +17,7 @@
 import os
 from PIL import Image
 
-# funtion to create the actual dataset from the mapping dataframes, divided by class type
+# function to create the actual dataset from the mapping dataframes, divided by class type
 def dataset_creation(dataframe, destination_path:str):
     total_images = len(dataframe)
     processed_images = 0
