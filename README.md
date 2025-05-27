@@ -21,13 +21,13 @@ Annotations have been released and are maintained via this [GitHub Repository](h
 
 - `black_box/`: Directory containing scripts related to the black box image classifier.
   - `code/`: Subdirectory containing additional scripts with utility functions developed for the project.
-    - `IGTD_utils.py`
+    - `IGTD_Functions.py`
     - `array_creation_stacking_utils.py`
     - `crop_data_utils.py`
     - `dataset_creation_utils.py`
     - `mapping_train_test_split_utils.py`
     - `model_training_utils.py`
-  - `notebooks/`: Subdirectory containing Jupyter notebooks with the entire project pipeline.
+  - `notebooks/`: Subdirectory containing Jupyter notebooks with the project workflow.
     - `0.lesion_EDA.ipynb`
     - `1.crop_data.ipynb`
     - `2.mapping_train_test_split.ipynb`
@@ -36,7 +36,7 @@ Annotations have been released and are maintained via this [GitHub Repository](h
     - `3.3.array_creation_stacking.ipynb`
     - `4.model_training.ipynb`
     - `5.post_lesion_explanation_creation.ipynb`
-- `images/`: Subdirectory containing the images created for the paper. 
+- `images/`: Subdirectory containing the images created for the study. 
 - `LICENSE`: The Project License
 - `README.md`: This file.
 
