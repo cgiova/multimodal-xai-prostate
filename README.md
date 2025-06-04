@@ -35,7 +35,7 @@ Annotations have been released and are maintained via this [GitHub Repository](h
     - `3.2.tab_to_images.ipynb`
     - `3.3.array_creation_stacking.ipynb`
     - `4.model_training.ipynb`
-    - `5.post_lesion_explanation_creation.ipynb`
+    - `5.explanation_module.ipynb`
 - `images/`: Subdirectory containing the images created for the study. 
 - `LICENSE`: The Project License
 - `README.md`: This file.
