@@ -1,7 +1,5 @@
 # Multimodal Deep Learning and Explainable AI for Enhanced Prostate Lesion Classification Official Repository
-Welcome to the repository for "Integrating Multimodal Deep Learning and Explainable AI for Enhanced Prostate Lesion Classification".\
-This repository contains Python scripts and Jupyter notebooks related to the creation of a black box classifier, dataset preprocessing, and explainability techniques.
-
+This is the repository for "Integrating Multimodal Deep Learning and Explainable AI for Enhanced Prostate Lesion Classification".
 ## Abstract
 Artificial Intelligence holds immense promise in healthcare, offering opportunities to enhance disease diagnosis, treatment selection, and clinical testing. However, the lack of interpretability in AI systems poses a significant challenge, potentially impeding their adoption. In our paper, we address this issue by proposing an analytical framework that leverages a multimodal deep learning approach for the classification of prostate lesions using Magnetic Resonance Imaging (MRI) data and patient clinical information.
 
@@ -35,7 +33,8 @@ Annotations have been released and are maintained via this [GitHub Repository](h
     - `3.2.tab_to_images.ipynb`
     - `3.3.array_creation_stacking.ipynb`
     - `4.model_training.ipynb`
-    - `5.explanation_module.ipynb`
+    - `5.1.visual_explanation_module.ipynb`
+    - `5.1.quantitative_explanation_module.ipynb`
 - `images/`: Subdirectory containing the images created for the study. 
 - `LICENSE`: The Project License
 - `README.md`: This file.
